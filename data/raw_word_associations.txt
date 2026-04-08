@@ -1,0 +1,1 @@
+Data in raw_word_associations.csv originates from Small World of Worlds (https://smallworldofwords.org/nl/project/research).

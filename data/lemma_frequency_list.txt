@@ -1,0 +1,41 @@
+The data in lemma_frequency_list.csv originates from OpenSoNaR (https://opensonar.ivdnt.org). These are all the tokens filtered by corpus (= SoNaR), and grouped by lemma (case insensitive).
+
+The file lemma_frequency_list.csv was cleaned in several steps:
+
+1.	Remove all lemmas that contain anything but alphabetic characters, by substituting an empty string for any line that is a match of the following regular expression:
+
+		^[^a-z\n]+,\d+\n
+
+2.	Remove all lines containing double-quoted lemmas, by substituting an empty string for any line that is a match of the following regular expression:
+
+		^".*\n
+
+	These are invalid lemmas or problematic lemmas, the latter reuquiring a number of strategies and replacement patterns to eliminate the double quotes and fix the problems within the double-quoted lemmas.
+	There seems to be a considerale number of such lemmas. However, the relative frequencies/counts of such lemmas are negligible compared to the top 5000 lemmas. Moreover, there seems to be quite a variety of such lemmas. Therefore, it is assumed that removing these lemmas does not distort the distribution (of valid lemmas at least).
+
+3.	Fix the following problem:
+
+		\\' -> '
+
+4.	Remove all lemmas containing invalid characters, by substituting an empty string for any line that is a match of the following regular expression:
+
+		^.*?[^a-zA-Z\n\.\-'`ʹ´ʼ’&0-9].*?,\d+\n
+
+	As a result, some valid lemmas with high relative frequencies/counts may have been removed.
+
+5.	Use only one apostrophe character, by substituting ' for any match of the following regular expression:
+
+		['`ʹ´ʼ’]
+
+6.	Remove all lemmas containing a series of three dots or more, by substituting an empty string for any line that is a match of the following regular expression:
+
+		^[^\n.]*?\.{3,}[^\n.]*?,\d+\n
+
+7.	Remove all lemmas that start with an invalid character, by substituting an empty string for any line that is a match of the following regular expression:
+
+		^[^a-z'0-9].*\n
+
+
+Any code that extracts data from the file must group by lemma to collapse all duplicates, summing the counts, since some of the replacements above may yield duplicates of already existing lemmas.
+
+The dataset still contains some noise, and removing this noise results in a more compatible dataset that contributes towards more efficient solutions. Moreover, some of the regular expressions above (may) have removed some valid lemmas, and rewriting these regular expressions in a more precise manner retains those lemmas.

@@ -1,0 +1,1 @@
+The data in the file conjunctions.csv originate from Algemeen Nederlands Woordenboek (https://anw.ivdnt.org). The file is the result of exporting lemma data filtered by part of speech (Woordsoort = voegwoorden), grouped by lemma.
