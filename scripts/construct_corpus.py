@@ -1312,3 +1312,143 @@ with open("corpus/overlap_all.csv", "w") as file:
 		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + " .,")
 		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
 		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+
+# Tenth condition: different word order.
+
+subcorpus = set([])
+
+# 15000 sentence pair/condition (P/C).
+while len(subcorpus) < 15_000:
+	# Pick a random verb and assign it to prime and target sentences. Assignment to the target sentence renders the condition in the while-loop redundant, but the combination of assingment and condition helps maintain a compact code. (No do-while in Python, like in the C-family of programming langauges.)
+	prime_verb = target_verb = choice(verbs)
+	# Keep assigning a random verb to the target sentence, as long as the previous pick:
+	while (
+			# lexically overlaps with the prime sentence verb; or
+			target_verb[0] == prime_verb[0] or
+			# semantically overlaps with the prime sentence verb.
+			set([target_verb[0], prime_verb[0]]) in word_associations
+		):
+		target_verb = choice(verbs)
+	
+	# Pick a random persoonsnaam and assign it to prime sentence and target sentence subjects.
+	prime_subject = target_subject = choice(persoonsnaam)
+	# Keep assinging a random persoonsnaam to the prime sentence subject, as long as the previous pick semantically overlaps with the target sentence verb.
+	while set([prime_subject[0], target_verb[0]]) in word_associations:
+		prime_subject = choice(persoonsnaam)
+	# Keep assigning a random persoonsnaam to the target sentence subject, as long as the previous pick:
+	while (
+			# lexically overlaps with the prime sentence subject;
+			target_subject[0] == prime_subject[0] or
+			# semantically overlaps with the prime sentence subject; or
+			set([target_subject[0], prime_subject[0]]) in word_associations or
+			# semantically overlaps with the prime sentence verb.
+			set([target_subject[0], prime_verb[0]]) in word_associations
+		):
+		target_subject = choice(persoonsnaam)
+	
+	# Pick a random persoonsnaam and assign it to prime sentence and target sentence indirect objects.
+	prime_indirect_object = target_indirect_object = choice(persoonsnaam)
+	# Keep assigning a random persoonsnaam to the prime sentence indirect object, as long as the previous pick:
+	while (
+			# lexically overlaps with the prime sentence subject;
+			prime_indirect_object[0] == prime_subject[0] or
+
+			# lexically overlaps with the target sentence subject;
+			prime_indirect_object[0] == target_subject[0] or
+			# semantically overlaps with the target sentence subject; or
+			set([prime_indirect_object[0], target_subject[0]]) in word_associations or
+			# semantically overlaps with the target sentence verb.
+			set([prime_indirect_object[0], target_verb[0]]) in word_associations
+		):
+		prime_indirect_object = choice(persoonsnaam)
+	# Keep assigning a random persoonsnaam to the target sentence indirect object, as long as the previous pick:
+	while (
+			# lexically overlaps with the target sentence subject;
+			target_indirect_object[0] == target_subject[0] or
+
+			# lexically overlaps with the prime sentence subject;
+			target_indirect_object[0] == prime_subject[0] or
+			# semantically overlaps with the prime sentence subject;
+			set([target_indirect_object[0], prime_subject[0]]) in word_associations or
+			# semantically overlaps with the prime sentence verb;
+			set([target_indirect_object[0], prime_verb[0]]) in word_associations or
+			# lexically overlaps with the prime sentence indirect object; or
+			target_indirect_object[0] == prime_indirect_object[0] or
+			# semantically overlaps with the prime sentence indirect object.
+			set([target_indirect_object[0], prime_indirect_object[0]]) in word_associations
+		):
+		target_indirect_object = choice(persoonsnaam)
+	
+	# Pick a random noun and assign it to prime sentence and target sentence direct objects.
+	prime_direct_object = target_direct_object = choice(nouns)
+	# Keep assigning a random noun to the prime sentence direct object, as long as the previous pick:
+	while (
+			# lexically overlaps with the prime sentence subject;
+			prime_direct_object[0] == prime_subject[0] or
+			# belongs to a category the prime sentence verb does not accept;
+			prime_direct_object[2].isdisjoint(prime_verb[3]) or
+			# lexically overlaps with the prime sentence indirect object;
+			prime_direct_object[0] == prime_indirect_object[0] or
+
+			# lexicaly overlaps with the target sentence subject;
+			prime_direct_object[0] == target_subject[0] or
+			# semantically overlaps with the target sentence subject;
+			set([prime_direct_object[0], target_subject[0]]) in word_associations or
+			# semantically overlaps with the target sentence verb;
+			set([prime_direct_object[0], target_verb[0]]) in word_associations or
+			# lexically overlaps with the target sentence indirect object; or
+			prime_direct_object[0] == target_indirect_object[0] or
+			# semantically overlaps with the target sentence indirect object.
+			set([prime_direct_object[0], target_indirect_object[0]]) in word_associations
+		):
+		prime_direct_object = choice(nouns)
+	# Keep assigning a random noun to the target sentence direct object, as long as the previous pick:
+	while (
+			# lexically overlaps with the target sentence subject;
+			target_indirect_object[0] == target_subject[0] or
+			# belongs to a cateogry the target sentence verb does not accept;
+			target_direct_object[2].isdisjoint(target_verb[3]) or
+			# lexically overlaps with the target sentence indirect object;
+			target_direct_object[0] == target_indirect_object[0] or
+
+			# lexically overlaps with the prime sentence subject;
+			target_direct_object[0] == prime_subject[0] or
+			# semantically overlaps with the prime sentence subject;
+			set([target_direct_object[0], prime_subject[0]]) in word_associations or
+			# semantically overlaps with the prime sentence verb;
+			set([target_direct_object[0], prime_verb[0]]) in word_associations or
+			# lexically overlaps with the prime sentence indirect object;
+			target_direct_object[0] == prime_indirect_object[0] or
+			# semantically overlaps with the prime sentence indirect object;
+			set([target_direct_object[0], prime_indirect_object[0]]) in word_associations or
+			# lexically overlaps with the prime sentence direct object; or
+			target_direct_object[0] == prime_direct_object[0] or
+			# semantically overlaps with the prime sentence direct object.
+			set([target_direct_object[0], prime_direct_object[0]]) in word_associations
+		):
+		target_direct_object = choice(nouns)
+
+	# Construct abstract prime and target pair.
+	sentence_pair = tuple([
+		# subject noun article, subject noun, verb, verb preposition, indirect object noun article, indirect object noun, direct object noun article, direct object noun
+		tuple([prime_subject[1], prime_subject[0], prime_verb[1], prime_verb[2], prime_indirect_object[1], prime_indirect_object[0], prime_direct_object[1], prime_direct_object[0]]),
+		tuple([target_subject[1], target_subject[0], target_verb[1], target_verb[2], target_indirect_object[1], target_indirect_object[0], target_direct_object[1], target_direct_object[0]])])
+
+	# If the subcorpus does not contain the recently constructed prime and target pair, then store.
+	if sentence_pair not in subcorpus:
+		subcorpus.add(sentence_pair)
+
+# Open subcorpus file for writing.
+with open("corpus/no_overlap_different_word_order.csv", "w") as file:
+	# Write CSV header.
+	file.write("ppo,pdo,tpo,tdo\n")
+	# Iterate over sentence pairs in the subcorpus and write pairs.
+	for sentence_pair in subcorpus:
+		# Write prime sentence in prepositional object form (transitive).
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
+		# Write prime sentence in dative object form (ditransitive).
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][7] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " .,")
+		# Write target sentence in prepositional object form (transitive).
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
+		# Write target sentence in dative object form (ditransitive).
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " .\n")
