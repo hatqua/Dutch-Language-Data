@@ -1441,7 +1441,7 @@ while len(subcorpus) < 15_000:
 # Open subcorpus file for writing.
 with open("corpus/no_overlap_different_word_order.csv", "w") as file:
 	# Write CSV header.
-	file.write("ppo,pdo,tpo,tdo\n")
+	file.write("ppodo,pdopo,tpodo,tdopo\n")
 	# Iterate over sentence pairs in the subcorpus and write pairs.
 	for sentence_pair in subcorpus:
 		# Write prime sentence in prepositional object form (transitive).
