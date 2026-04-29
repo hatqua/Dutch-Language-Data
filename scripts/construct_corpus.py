@@ -205,13 +205,13 @@ with open("corpus/no_overlap.csv", "w") as file:
 	# Iterate over sentence pairs in the subcorpus and write pairs.
 	for sentence_pair in subcorpus:
 		# Write prime sentence in prepositional object form (transitive).
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
 		# Write prime sentence in dative object form (ditransitive).
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
 		# Write target sentence in prepositional object form (transitive).
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
 		# Write target sentence in dative object form (ditransitive).
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Second condition: verbs are semantically related.
 
@@ -341,10 +341,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/semantic_similarity_verb.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Third condition: corresponding nouns across prime and target are semanticaly related.
 
@@ -502,10 +502,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/semantic_similarity_nouns.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Fourth condition: the verbs and corresponding nouns across prime and target are semanticaly related.
 
@@ -662,10 +662,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/semantic_similarity_all.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Fifth condition: random noun overlap.
 
@@ -860,10 +860,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/overlap_random_noun.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Sixth condition: all nouns overlap.
 
@@ -957,10 +957,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/overlap_all_nouns.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Seventh condition: same verb in prime and target sentences.
 
@@ -1081,10 +1081,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/overlap_verb.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Eighth condition: determiner overlap.
 
@@ -1219,10 +1219,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/overlap_determiner.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Ninth condition: prime sentence and target sentence are the same sentence.
 
@@ -1308,10 +1308,10 @@ while len(subcorpus) < 15_000:
 with open("corpus/overlap_all.csv", "w") as file:
 	file.write("ppo,pdo,tpo,tdo\n")
 	for sentence_pair in subcorpus:
-		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .\n")
+		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[0][0] + " " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][4] + " " + sentence_pair[0][5] + " " + sentence_pair[0][6] + " " + sentence_pair[0][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + "\n")
 
 # Tenth condition: different word order.
 
@@ -1445,10 +1445,10 @@ with open("corpus/no_overlap_different_word_order.csv", "w") as file:
 	# Iterate over sentence pairs in the subcorpus and write pairs.
 	for sentence_pair in subcorpus:
 		# Write prime sentence in prepositional object form (transitive).
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + " .,")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " een " + sentence_pair[0][7] + ",")
 		# Write prime sentence in dative object form (ditransitive).
-		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][7] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + " .,")
+		file.write("een " + sentence_pair[0][1] + " " + sentence_pair[0][2] + " een " + sentence_pair[0][7] + " " + sentence_pair[0][3] + " een " + sentence_pair[0][5] + ",")
 		# Write target sentence in prepositional object form (transitive).
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " .,")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + ",")
 		# Write target sentence in dative object form (ditransitive).
-		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + " .\n")
+		file.write(sentence_pair[1][0] + " " + sentence_pair[1][1] + " " + sentence_pair[1][2] + " " + sentence_pair[1][6] + " " + sentence_pair[1][7] + " " + sentence_pair[1][3] + " " + sentence_pair[1][4] + " " + sentence_pair[1][5] + "\n")
