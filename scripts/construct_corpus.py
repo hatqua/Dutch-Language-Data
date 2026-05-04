@@ -2024,4 +2024,4 @@ while len(subcorpus) < 1000:
 		Sentence(target_subject[1], target_subject[0], target_verb[1], target_verb[2], target_indirect_object[1], target_indirect_object[0], target_direct_object[1], target_direct_object[0])
 	))
 
-subcorpus.serialize(corpus_path, "dissonance", False, False, False, True, True, True)
+subcorpus.serialize(corpus_path, "semantic_dissonance", False, False, False, True, True, True)
