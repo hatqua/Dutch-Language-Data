@@ -1,0 +1,1 @@
+The data in this folder originate from OpenSoNaR (https://opensonar.ivdnt.org). These are all the tokens filtered by corpus (= SoNaR), and grouped by lemma (case insensitive).

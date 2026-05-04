@@ -1,0 +1,1 @@
+The data in the file telwoorden.csv originate from Algemeen Nederlands Woordenboek (https://anw.ivdnt.org). Each file is the result of exporting lemma data filtered by part of speech (Woordsoort = telwoorden), grouped by lemma.

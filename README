@@ -1,7 +1,0 @@
-This project contains a compiled corpus comprising pairs of prime and target sentences aimed at priming LLMs and measuring the effects of priming, if any, and determining the major contributors to the priming effect, if any. Moreover, the project contains all raw data that form the basis for the final compiled corpus, and the scripts that transform that raw data into the final, compiled corpus.
-
-The raw data may be found under directory 'data'. The directory also contains some references, explaining the origin of the data. Note that some intermediate processing is necessary to transform some of the raw data into more convenient shapes.
-
-The scripts that process the raw data and compile the final corpus may be found under directory 'scripts'. Calls to the scripts construct_nouns_table.py and construct_word_associations_table.py must preceed any call to the script construct_corpus.py. The former two scripts process noun and word associations data. The latter script is dependent on the outcome of the former two to compiles the final corpus.
-
-The scripts make references to source data files in directory 'data' and to destination data files in directory 'corpus' assuming that the calls to the scripts originate from the project directory. Therefore, the user must call the scripts from the project directory for the scripts to function properly ('python scripts/construct_corpus.py', not 'cd scripts ; python construct_corpus.py').

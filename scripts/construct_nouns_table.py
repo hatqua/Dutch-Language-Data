@@ -1,61 +1,84 @@
 # This script constructs a CSV file containing noun lemmas associated with the categories and articles. The script only stores noun lemmas that are among the most 5000 frequent lemmas in SoNaR.
 
-import pandas as pd
-import numpy as np
 from pathlib import Path
+from csv import reader, writer
+from itertools import groupby
 
-# This is the output data file where this script stores the result of processing all noun data files.
-output_file = Path("data/nouns.csv")
+# Read frequency list, and limit the result to the 5000 most frequent lemmas. See notes in data/noun_lemma_frequency_list.txt for more information on the need for grouping.
+lemma_frequency_list = None
+with open("data/lemma_frequency_list.csv") as file:
+	# Skip CSV header.
+	file.readline()
+	lemma_frequency_list = [(row[0], int(row[1])) for row in reader(file)]
+# Sort lemma frequency data by lemma for later grouping.
+lemma_frequency_list.sort(key=lambda x: x[0])
+# Group by lemma summing frequencies.
+lemma_frequency_list = [(group[0], sum([record[1] for record in group[1]])) for group in groupby(lemma_frequency_list, lambda x: x[0])]
+# Order lemma data by frequency descending.
+lemma_frequency_list.sort(key=lambda x: x[1], reverse=True)
+# Limit lemma data to 5000.
+lemma_frequency_list = {lemma_frequency[0] for lemma_frequency in lemma_frequency_list[:5000]}
 
-# If the output data file already exists, delete the file.
-if output_file.exists():
-	output_file.unlink()
+# List of excluded lemmas.
+excluded_lemmas = None
+# Add pronoun lemmas to excluded lemmas.
+with open("data/pronouns.csv") as file:
+	# Skip CSV header.
+	file.readline()
+	excluded_lemmas = {row[1] for row in reader(file)}
 
-# Read frequency list, and limit the result to the 5000 most frequent lemmas. See notes in data/noun_lemma_frequency_list.txt for more information about the need for grouping.
-lemma_frequency_list = pd.read_csv("data/lemma_frequency_list.csv").groupby("lemma", as_index=False)[["count"]].sum().sort_values(by="count", ascending=False)[:5000]
+# Add conjunction lemmas to excluded lemmas.
+with open("data/conjunctions.csv") as file:
+	# Skip CSV header.
+	file.readline()
+	excluded_lemmas = excluded_lemmas | {row[1] for row in reader(file)}
 
-# Read pronoun data.
-pronouns = pd.read_csv("data/pronouns.csv", usecols=["lemma"])
+# Add numeral lemmas to excluded lemmas.
+with open("data/telwoorden.csv") as file:
+	# Skip CSV header.
+	file.readline()
+	excluded_lemmas = excluded_lemmas | {row[1] for row in reader(file)}
 
-# Read conjunction data.
-conjunctions = pd.read_csv("data/conjunctions.csv", usecols=["lemma"])
-
-# Initialize empty data frame. The script collects all cateogry data in this data frame.
-categories_concatenated = pd.DataFrame()
-categories_concatenated.insert(0, "lemma", "")
-categories_concatenated.insert(1, "category", "")
-
-# The name of the file denotes the semantic category.
+# Collect lemma category data.
+lemma_categories = []
+# Iterate over the files under the category folder. The name of the file denotes the semantic category.
 for file_name in Path("data/nouns/categories").glob("*.csv"):
-	# Read category data, grouping by lemma to collapse all duplicates into one lemma.
-	tmp = pd.read_csv(file_name, usecols=["lemma"]).groupby("lemma", as_index=False).nunique()
-	# Exclude pronouns and conjunctions. This will also result in the exclusion of pronouns and conjunctions in the last line in this script, resulting in an output file that contains no pronouns and no conjunctions.
-	tmp = tmp[~tmp["lemma"].isin(pronouns["lemma"])]
-	tmp = tmp[~tmp["lemma"].isin(conjunctions["lemma"])]
-	# Insert the category column with a constant value derived from the name of the file.
-	tmp.insert(1, "category", file_name.stem)
-	# Accumulate data.
-	categories_concatenated = pd.concat([categories_concatenated, tmp])
+	# Abstract noun no good! This is still unexplainable at the moment. Exclude all nouns that belong to no other cateogry but abstract.
+	# Add verzamelnaam to the list of excluded nouns. These nouns are of an ambiguous nature.
+	if file_name.stem != "abstract" and file_name.stem != "verzamelnaam":
+		with open(file_name) as file:
+			# Skip CSV header.
+			file.readline()
+			# Append lemmas from file, associated with the category, if the lemma is not excluded.
+			lemma_categories = lemma_categories + [(lemma, file_name.stem) for lemma in {row[1] for row in reader(file) if row[1] not in excluded_lemmas}]
+# Sort lemma category data by lemma for later grouping.
+lemma_categories.sort(key=lambda x: x[0])
+# Group by lemma concatenating categories.
+lemma_categories = {group[0]: [record[1] for record in group[1]] for group in groupby(lemma_categories, lambda x: x[0])}
 
-# Group category data by lemma to collapse duplicates, concatenating categories.
-categories_concatenated = categories_concatenated.groupby("lemma", as_index=False).aggregate(lambda x: ";".join(x.tolist()))
+# Collect lemma article frequency data.
+lemma_articles = None
+with open("data/nouns/articles.csv") as file:
+	# Skip CSV header.
+	file.readline()
+	# (article, lemma, frequency)
+	lemma_articles = [tuple(row[0].split(" ")) + (row[1], ) for row in reader(file)]
+# Sort lemma article data by lemma for later grouping.
+lemma_articles.sort(key=lambda x: x[1])
+# Group by lemma and choose the most frequent article.
+lemma_articles = [(group[0], max(group[1], key=lambda x: int(x[2]))[0]) for group in groupby(lemma_articles, lambda x: x[1])]
 
-# Initialize empty data frame. The script collects all article data in this data frame.
-articles_concatenated = pd.DataFrame()
-articles_concatenated.insert(0, "lemma", "")
-articles_concatenated.insert(1, "article", "")
-
-# The name of the file denotes the article.
-for file_name in Path("data/nouns/articles").glob("*.csv"):
-	# Read article data, grouping by lemma to collapse all duplicates into one lemma.
-	tmp = pd.read_csv(file_name, usecols=["lemma"]).groupby("lemma", as_index=False).nunique()
-	# Insert the article column with a constant value derived from the name of the file.
-	tmp.insert(1, "article", file_name.stem)
-	# Accumulate data.
-	articles_concatenated = pd.concat([articles_concatenated, tmp])
-
-# Group article data by lemma to collapse duplicates, concatenating articles.
-articles_concatenated = articles_concatenated.groupby("lemma", as_index=False).aggregate(lambda x: ";".join(x.tolist()))
-
-# (Inner) join frequency data with category data and article data, filtering out any lemma not in the 5000 most frequent lemmas and any lemma with missing/no article. Then, sort the data by count. Finally, write the result to the output file.
-articles_concatenated.merge(categories_concatenated.merge(lemma_frequency_list, how="inner", left_on="lemma", right_on="lemma"), how="inner", left_on="lemma", right_on="lemma").sort_values(by="count", ascending=False).to_csv(output_file, columns=["lemma","article","category"], index=False)
+with open("data/nouns.csv", "w") as file:
+	file.write("lemma,article,category\n")
+	for lemma_article in lemma_articles:
+		if lemma_article[0] in lemma_frequency_list:
+			try:
+				categories = lemma_categories[lemma_article[0]]
+				file.write(lemma_article[0])
+				file.write(",")
+				file.write(lemma_article[1])
+				file.write(",")
+				file.write(";".join(categories))
+				file.write("\n")
+			except KeyError:
+				pass
