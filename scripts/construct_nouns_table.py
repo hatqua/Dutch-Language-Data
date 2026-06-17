@@ -1,4 +1,4 @@
-# This script constructs a CSV file containing noun lemmas associated with the categories and articles. The script only stores noun lemmas that are among the most 5000 frequent lemmas in SoNaR.
+# This script constructs a CSV file containing noun lemmas associated with the categories and articles. The script only stores noun lemmas that are among the 5000 most frequent lemmas in SoNaR.
 
 from pathlib import Path
 from csv import reader, writer
