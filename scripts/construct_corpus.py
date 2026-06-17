@@ -33,7 +33,7 @@ class Sentence:
 
 	def serialize_iodo(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize setnence in ditransitive form (subject, verb, indirect object, direct object).
+		Serialize the setnence in ditransitive form (subject, verb, indirect object, direct object).
 		"""
 		return	(self.subject_article if definite_subject else "een") + " " + \
 				self.subject_noun + " " + \
@@ -45,7 +45,7 @@ class Sentence:
 	
 	def serialize_podo(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in transitive form, where the prepositional (indirect) object precedes the direct object (subject, verb, preposition, indirect object, direct object).
+		Serialize the sentence in transitive form, where the prepositional (indirect) object precedes the direct object (subject, verb, preposition, indirect object, direct object).
 		"""
 		return	(self.subject_article if definite_subject else "een") + " " + \
 				self.subject_noun + " " + \
@@ -58,7 +58,7 @@ class Sentence:
 	
 	def serialize_dopo(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in transitive form, where the prepositional (indirect) object succeeds the direct object (subject, verb, direct object, preposition, indirect object).
+		Serialize the sentence in transitive form, where the prepositional (indirect) object succeeds the direct object (subject, verb, direct object, preposition, indirect object).
 		"""
 		return	(self.subject_article if definite_subject else "een") + " " + \
 				self.subject_noun + " " + \
@@ -71,7 +71,7 @@ class Sentence:
 	
 	def serialize_io_random_token(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in ditransitive form, with a random order of the tokens.
+		Serialize the sentence in ditransitive form, with a random order of the tokens.
 		"""
 		return " ".join(sample([
 			(self.subject_article if definite_subject else "een"),
@@ -85,7 +85,7 @@ class Sentence:
 	
 	def serialize_io_random_constituent(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in ditransitive form, with a random order of the constituents.
+		Serialize the sentence in ditransitive form, with a random order of the constituents.
 		"""
 		return " ".join(sample([
 			(self.subject_article if definite_subject else "een") + " " + self.subject_noun,
@@ -96,7 +96,7 @@ class Sentence:
 
 	def serialize_po_random_token(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in transitive form, with a random order of the tokens.
+		Serialize the sentence in transitive form, with a random order of the tokens.
 		"""
 		return " ".join(sample([
 			(self.subject_article if definite_subject else "een"),
@@ -111,7 +111,7 @@ class Sentence:
 
 	def serialize_po_random_constituent(self, definite_subject: bool=True, definite_indirect_object: bool=True, definite_direct_object: bool=True) -> str:
 		"""
-		Serialize sentence in transitive form, with a random order of the constituents.
+		Serialize the sentence in transitive form, with a random order of the constituents.
 		"""
 		return " ".join(sample([
 			(self.subject_article if definite_subject else "een") + " " + self.subject_noun,
