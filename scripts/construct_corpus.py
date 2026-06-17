@@ -24,7 +24,7 @@ class Sentence:
 	
 	def __eq__(self, value) -> bool:
 		"""
-		Check two sentences for equality.
+		Compare two sentences for equality.
 		"""
 		return	type(value) == Sentence and self.hash == value.hash
 	
