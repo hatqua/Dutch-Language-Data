@@ -6,7 +6,7 @@ from pathlib import Path
 
 class Sentence:
 	"""
-	A sentence consists of a subject + article (de/het), a verb + preposition, an indirect object + article, and a direct object + article.
+	A sentence consists of a subject and its article (de/het), a verb and its preposition, an indirect object and its article, and a direct object and its article.
 	"""
 	def __init__(self, subject_article: str, subject_noun: str, verb_form: str, verb_preposition: str, indirect_object_article: str, indirect_object_noun: str, direct_object_article: str, direct_object_noun: str):
 		"""
