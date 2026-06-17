@@ -10,7 +10,7 @@ class Sentence:
 	"""
 	def __init__(self, subject_article: str, subject_noun: str, verb_form: str, verb_preposition: str, indirect_object_article: str, indirect_object_noun: str, direct_object_article: str, direct_object_noun: str):
 		"""
-		Construct a sentence given the elements.
+		Construct a sentence given its elements.
 		"""
 		self.subject_article = subject_article
 		self.subject_noun = subject_noun
